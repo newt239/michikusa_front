@@ -14,7 +14,8 @@
     "@tanstack/react-router": "^1.40.0",
     "@yamada-ui/react": "^1.4.7",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vaul": "^0.9.1"
   },
   "devDependencies": {
     "@tanstack/router-devtools": "^1.40.0",
