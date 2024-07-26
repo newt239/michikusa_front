@@ -48,7 +48,7 @@
         ],
         "pathGroups": [
           {
-            "pattern": "{react,react-dom/**,react-router-dom}",
+            "pattern": "{react,react-dom/**,@tanstack/react-router}",
             "group": "builtin",
             "position": "before"
           }

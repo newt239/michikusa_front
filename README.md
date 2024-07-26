@@ -1,4 +1,4 @@
-# react-vite-templete
+# michikusa_front
 
 ## dependencies
 
