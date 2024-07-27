@@ -1,6 +1,5 @@
 import { ThemeTokens } from "@yamada-ui/react"
 
 export const colors: ThemeTokens = {
-  banner: "#9d38a0",
-  black: ["#1F2123", "#101112"],
+  background: "#F9FBE7",
 }
