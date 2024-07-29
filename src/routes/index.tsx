@@ -12,14 +12,17 @@ import {
   VStack,
 } from "@yamada-ui/react";
 
+//? backendに送るデータの型 命名は変えたい
+type RequestData = {
+  latitude: number;
+  longitude: number;
+  price?: number;
+};
+
 export const Route = createFileRoute("/")({
   component: () => {
     const [value, setValue] = useState<number>();
-
-    const sendLocationInfo = () => {
-      console.log("位置情報を取得する");
-    };
-
+    
     const items: NativeSelectItem[] = [
       { label: "100円", value: "100" },
       { label: "200円", value: "200" },
@@ -27,6 +30,25 @@ export const Route = createFileRoute("/")({
       { label: "400円", value: "400" },
       { label: "500円", value: "500" },
     ];
+
+    let requestData: RequestData = {
+      latitude: 0,
+      longitude: 0,
+    };
+
+    const sendLocationInfo = (): RequestData => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        requestData.latitude = position.coords.latitude;
+        requestData.longitude = position.coords.longitude;
+      });
+
+      // その時選択されている金額をリクエストデータに追加
+      requestData.price = value;
+
+      console.log(requestData);
+
+      return requestData;
+    };
 
     return (
       <div>
