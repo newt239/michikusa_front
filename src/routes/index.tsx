@@ -12,6 +12,8 @@ import {
   VStack,
 } from "@yamada-ui/react";
 
+import Waypoint from "#/components/map/waypoints";
+
 //? backendに送るデータの型 命名は変えたい
 type RequestData = {
   latitude: number;
@@ -22,7 +24,7 @@ type RequestData = {
 export const Route = createFileRoute("/")({
   component: () => {
     const [value, setValue] = useState<number>();
-    
+
     const items: NativeSelectItem[] = [
       { label: "100円", value: "100" },
       { label: "200円", value: "200" },
@@ -53,7 +55,7 @@ export const Route = createFileRoute("/")({
     return (
       <div>
         <Center bg="background" h="100vh" m="auto" maxW="xl">
-          <VStack align={"center"} gap="24" h="auto">
+          <VStack align="center" gap="24" h="auto">
             <Text fontSize="8xl">みちくさ</Text>
             <Spacer />
             <Container w="sx">
@@ -70,6 +72,11 @@ export const Route = createFileRoute("/")({
                 placeholder="金額設定"
                 value={value}
               />
+            </Container>
+
+            {/* 仮表示 */}
+            <Container w="xl">
+              <Waypoint />
             </Container>
           </VStack>
         </Center>
