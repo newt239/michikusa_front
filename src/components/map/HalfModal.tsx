@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -53,13 +54,11 @@ const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
         <Drawer.Content className={styles.content}>
           <div className={styles.innerContent}>
             <div className={styles.handle} />
-            <div className={styles.main}>
-              <Drawer.Title className={styles.title}>
-                {station.name}
-              </Drawer.Title>
-              <VStack>
+            <Box>
+              <Heading as="h2">{station.name}</Heading>
+              <VStack my="4">
                 {facilityList.map((facility) => (
-                  <Card key={facility.name} variant="elevated">
+                  <Card key={facility.name} variant="outline">
                     <CardHeader>
                       <Heading size="md">{facility.name}</Heading>
                     </CardHeader>
@@ -72,7 +71,7 @@ const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
                   </Card>
                 ))}
               </VStack>
-            </div>
+            </Box>
           </div>
           <div className={styles.footer}>
             <div className={styles.footerContent}>
