@@ -1,5 +1,7 @@
 "use client";
 
+import { useCallback, useState } from "react";
+
 import {
   Button,
   Card,
@@ -21,8 +23,20 @@ type Props = {
 };
 
 const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const onOpenChange = useCallback(
+    (nextOpen: boolean) => {
+      if (nextOpen) {
+        setIsOpen(true);
+      } else {
+        setIsOpen(false);
+      }
+    },
+    [setIsOpen]
+  );
+
   return (
-    <Drawer.Root>
+    <Drawer.Root onOpenChange={onOpenChange} open={isOpen}>
       <Drawer.Trigger asChild>
         <Button
           bottom="6"
