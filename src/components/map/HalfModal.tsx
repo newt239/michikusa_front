@@ -1,11 +1,26 @@
 "use client";
 
-import { Button } from "@yamada-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Text,
+  VStack,
+} from "@yamada-ui/react";
 import { Drawer } from "vaul";
 
 import styles from "./HalfModal.module.css";
 
-export function HalfModal() {
+import { Facility, Station } from "#/utils/type";
+
+type Props = {
+  station: Station;
+  facilityList: Facility[];
+};
+
+const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
@@ -25,31 +40,24 @@ export function HalfModal() {
           <div className={styles.innerContent}>
             <div className={styles.handle} />
             <div className={styles.main}>
-              <Drawer.Title className={styles.title}>施設一覧</Drawer.Title>
-              <p className={styles.paragraph}>
-                This component can be used as a replacement for a Dialog on
-                mobile and tablet devices.
-              </p>
-              <p className={styles.paragraph}>
-                It uses{" "}
-                <a
-                  className={styles.link}
-                  href="https://www.radix-ui.com/docs/primitives/components/dialog"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Radix&rsquo;s Dialog primitive
-                </a>{" "}
-                under the hood and is inspired by{" "}
-                <a
-                  className={styles.link}
-                  href="https://twitter.com/devongovett/status/1674470185783402496"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  this tweet.
-                </a>
-              </p>
+              <Drawer.Title className={styles.title}>
+                {station.name}
+              </Drawer.Title>
+              <VStack>
+                {facilityList.map((facility) => (
+                  <Card key={facility.name} variant="elevated">
+                    <CardHeader>
+                      <Heading size="md">{facility.name}</Heading>
+                    </CardHeader>
+
+                    <CardBody>
+                      <Text>
+                        {facility.genre} / {facility.distance}m
+                      </Text>
+                    </CardBody>
+                  </Card>
+                ))}
+              </VStack>
             </div>
           </div>
           <div className={styles.footer}>
@@ -82,4 +90,6 @@ export function HalfModal() {
       </Drawer.Portal>
     </Drawer.Root>
   );
-}
+};
+
+export default HalfModal;
