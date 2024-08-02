@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import {
   Box,
@@ -24,20 +24,15 @@ type Props = {
 };
 
 const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const onOpenChange = useCallback(
-    (nextOpen: boolean) => {
-      if (nextOpen) {
-        setIsOpen(true);
-      } else {
-        setIsOpen(false);
-      }
-    },
-    [setIsOpen]
-  );
+  const [snap, setSnap] = useState<number | string | null>("100px");
 
   return (
-    <Drawer.Root onOpenChange={onOpenChange} open={isOpen}>
+    <Drawer.Root
+      activeSnapPoint={snap}
+      open={true}
+      setActiveSnapPoint={setSnap}
+      snapPoints={["100px", "220px", "450px", 0.9]}
+    >
       <Drawer.Trigger asChild>
         <Button
           bottom="6"
@@ -50,12 +45,13 @@ const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Overlay className={styles.overlay} />
         <Drawer.Content className={styles.content}>
           <div className={styles.innerContent}>
             <div className={styles.handle} />
             <Box>
-              <Heading as="h2">{station.name}</Heading>
+              <Heading as="h2" pt={0} textAlign="center">
+                {station.name}
+              </Heading>
               <VStack my="4">
                 {facilityList.map((facility) => (
                   <Card key={facility.name} variant="outline">
@@ -72,32 +68,6 @@ const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
                 ))}
               </VStack>
             </Box>
-          </div>
-          <div className={styles.footer}>
-            <div className={styles.footerContent}>
-              <a
-                className={styles.footerLink}
-                href="https://github.com/emilkowalski/vaul"
-                rel="noreferrer"
-                target="_blank"
-              >
-                GitHub
-                <svg className={styles.icon} /* SVG attributes... */>
-                  {/* SVG path... */}
-                </svg>
-              </a>
-              <a
-                className={styles.footerLink}
-                href="https://twitter.com/emilkowalski_"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Twitter
-                <svg className={styles.icon} /* SVG attributes... */>
-                  {/* SVG path... */}
-                </svg>
-              </a>
-            </div>
           </div>
         </Drawer.Content>
       </Drawer.Portal>
