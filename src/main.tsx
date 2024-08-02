@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 
 import { UIProvider } from "@yamada-ui/react";
 
+import "./index.css";
+
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({ routeTree });
