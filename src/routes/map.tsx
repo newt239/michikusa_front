@@ -47,9 +47,10 @@ export const Route = createFileRoute("/map")({
 
       const getFacilityList = async () => {
         const data = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/locations-list?latitude=${lat}&longitude=${lon}`
+          `${import.meta.env.VITE_BACKEND_URL}/location-list?latitude=${lat}&longitude=${lon}`
         );
         const json: { facilities: Facility[] } = await data.json();
+        console.log(json);
         setFacilityList(json.facilities);
       };
       getFacilityList();
@@ -65,7 +66,7 @@ export const Route = createFileRoute("/map")({
           <WayPoints
             color_code={station.railway_color}
             destination_station={name}
-            nearest_station={station.nearest_station.name}
+            nearest_station={station.nearest_station}
             railway_name={station.railway_name}
           />
         </Box>

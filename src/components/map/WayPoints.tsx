@@ -4,7 +4,7 @@ type Props = {
   nearest_station?: string;
   railway_name?: string;
   color_code?: string;
-  destination_station: string;
+  destination_station: string | null;
 };
 
 const WayPoints: React.FC<Props> = ({
@@ -13,6 +13,7 @@ const WayPoints: React.FC<Props> = ({
   color_code,
   destination_station,
 }) => {
+  if (color_code) return null;
   return (
     <Card
       bg="white"
