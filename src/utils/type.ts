@@ -13,6 +13,12 @@ export type Facility = {
   longitude: number;
 };
 
+export type RequestData = {
+  latitude: number;
+  longitude: number;
+  price?: number;
+};
+
 export type ResponseData = {
   nearest_station: Station;
   destination_station: Station;
