@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
         setRequestData({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          price: value,
+          price: value ?? 500,
         });
       });
     };
@@ -53,9 +53,13 @@ export const Route = createFileRoute("/")({
         console.log("request: ", requestData);
         console.log("fetching...");
 
-        const data = await fetch(import.meta.env.VITE_BACKEND_URL, {
-          method: "GET",
-        })
+        const data = await fetch(
+          import.meta.env.VITE_BACKEND_URL +
+            `?latitude=${requestData.latitude}&longitude=${requestData.longitude}&price=${requestData.price}`,
+          {
+            method: "GET",
+          }
+        )
           .then((res) => res.json())
           .catch((error) => console.error(error));
 
@@ -105,7 +109,7 @@ export const Route = createFileRoute("/")({
                 <Image
                   key={index}
                   position="relative"
-                  right={index * Math.random() * 100 + 10}
+                  right={index * Math.random() * 200 + 20}
                   src={BackgroundImage}
                   w="1600px"
                 />
