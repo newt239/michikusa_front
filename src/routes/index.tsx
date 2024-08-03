@@ -14,7 +14,6 @@ import {
 } from "@yamada-ui/react";
 
 import BackgroundImage from "#/assets/backgroundImage.svg";
-import Waypoint from "#/components/map/waypoints";
 
 //? backendに送るデータの型 命名は変えたい
 type RequestData = {
@@ -98,9 +97,7 @@ export const Route = createFileRoute("/")({
               </Container>
 
               {/* 仮表示 */}
-              <Container w="xl">
-                <Waypoints />
-              </Container>
+              <Container w="xl"></Container>
             </VStack>
           </Center>
         </Center>
