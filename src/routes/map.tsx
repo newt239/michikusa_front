@@ -61,7 +61,7 @@ export const Route = createFileRoute("/map")({
     return (
       <Box h="full" w="full">
         <Map facilityList={facilityList} station={station} />
-        <Box left={0} pos="fixed" top={0} zIndex={1001}>
+        <Box left={0} pos="fixed" right={0} top={0} zIndex={1001}>
           <WayPoints />
         </Box>
         <Box zIndex={1001}>
