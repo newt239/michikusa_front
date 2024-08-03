@@ -23,8 +23,8 @@ const Map: React.FC<Props> = ({ station, facilityList }) => {
   return (
     <MapContainer
       center={[station.latitude, station.longitude]}
-      scrollWheelZoom={false}
       zoom={16}
+      zoomControl={false}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
