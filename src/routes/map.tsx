@@ -41,14 +41,7 @@ export const Route = createFileRoute("/map")({
     useEffect(() => {
       const getFacilityList = async () => {
         const data = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/locations-list`,
-          {
-            method: "GET",
-            body: JSON.stringify({
-              latitude: lat,
-              longitude: lon,
-            }),
-          }
+          `${import.meta.env.VITE_BACKEND_URL}/locations-list?latitude=${lat}&longitude=${lon}`
         );
         const json: { facilities: Facility[] } = await data.json();
         setFacilityList(json.facilities);
