@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import BackgroundImage from "#/assets/backgroundImage.svg";
 
 import {
   Button,
@@ -14,6 +13,7 @@ import {
   VStack,
 } from "@yamada-ui/react";
 
+import BackgroundImage from "#/assets/backgroundImage.svg";
 import Waypoint from "#/components/map/waypoints";
 
 //? backendに送るデータの型 命名は変えたい
@@ -74,7 +74,7 @@ export const Route = createFileRoute("/")({
             maxW="500px"
             position="fixed"
             right="0"
-            src="BackgroundImage"
+            src={BackgroundImage}
             w="100dvw"
           />
           <Center>
