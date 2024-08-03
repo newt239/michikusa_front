@@ -12,3 +12,18 @@ export type Facility = {
   latitude: number;
   longitude: number;
 };
+
+export type RequestData = {
+  latitude: number;
+  longitude: number;
+  price?: number;
+};
+
+export type ResponseData = {
+  nearest_station: Station;
+  destination_station: Station;
+  railway_name: string;
+  railway_color: string;
+  number_of_stations: number;
+  facilities: Facility[];
+};
