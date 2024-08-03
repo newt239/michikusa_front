@@ -1,6 +1,18 @@
 import { Box, Card, Flex } from "@yamada-ui/react";
 
-const WayPoints: React.FC = () => {
+type Props = {
+  nearest_station?: string;
+  railway_name?: string;
+  color_code?: string;
+  destination_station: string;
+};
+
+const WayPoints: React.FC<Props> = ({
+  nearest_station,
+  railway_name,
+  color_code,
+  destination_station,
+}) => {
   return (
     <Card
       bg="white"
@@ -11,53 +23,65 @@ const WayPoints: React.FC = () => {
       shadow="xl"
       variant="elevated"
     >
-      <Flex alignItems="center">
-        <Flex
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="space-between"
-        >
+      {nearest_station ? (
+        <Flex alignItems="center">
           <Flex
             alignItems="center"
-            bg="test.500"
-            borderRadius="full"
-            color="white"
-            h="3rem"
-            justifyContent="center"
-            w="3rem"
+            flexDirection="column"
+            justifyContent="space-between"
           >
-            <Box>M17</Box>
+            <Flex
+              alignItems="center"
+              bg="test.500"
+              borderRadius="full"
+              color="white"
+              h="3rem"
+              justifyContent="center"
+              w="3rem"
+            >
+              <Box>M17</Box>
+            </Flex>
+            <Box>{nearest_station}</Box>
           </Flex>
-          <Box>東京</Box>
-        </Flex>
-        <Box bg="test.500" borderRadius="full" h="0.125rem" margin={4} w="100%">
           <Box
-            bg="white"
-            display="inline-block"
-            left="50%"
-            pos="relative"
-            px={4}
-            top="-10px"
-            transform="translateX(-50%)"
-          >
-            丸ノ内線
-          </Box>
-        </Box>
-        <Flex alignItems="center" flexDirection="column">
-          <Flex
-            alignItems="center"
             bg="test.500"
             borderRadius="full"
-            color="white"
-            h="3rem"
-            justifyContent="center"
-            w="3rem"
+            h="0.125rem"
+            margin={4}
+            w="100%"
           >
-            <Box>M17</Box>
+            <Box
+              bg="white"
+              display="inline-block"
+              left="50%"
+              pos="relative"
+              px={4}
+              top="-10px"
+              transform="translateX(-50%)"
+            >
+              {railway_name}
+            </Box>
+          </Box>
+          <Flex alignItems="center" flexDirection="column">
+            <Flex
+              alignItems="center"
+              bg="test.500"
+              borderRadius="full"
+              color="white"
+              h="3rem"
+              justifyContent="center"
+              w="3rem"
+            >
+              <Box>M17</Box>
+            </Flex>
+            <Box>{destination_station}</Box>
           </Flex>
-          <Box>大手町</Box>
         </Flex>
-      </Flex>
+      ) : (
+        <Flex>
+          <Box>{destination_station}</Box>
+        </Flex>
+      )}
     </Card>
   );
 };

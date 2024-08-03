@@ -62,7 +62,12 @@ export const Route = createFileRoute("/map")({
           station={{ latitude: lat, longitude: lon, name }}
         />
         <Box left={0} pos="fixed" right={0} top={0} zIndex={1001}>
-          <WayPoints />
+          <WayPoints
+            color_code={station.railway_color}
+            destination_station={name}
+            nearest_station={station.nearest_station.name}
+            railway_name={station.railway_name}
+          />
         </Box>
         <Box zIndex={1001}>
           <HalfModal facilityList={facilityList} name={station.name} />
