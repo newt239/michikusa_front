@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -13,18 +13,15 @@ import {
 } from "@yamada-ui/react";
 
 import BackgroundImage from "#/assets/backgroundImage4.svg";
-import { type ResponseData } from "#/utils/type";
-
-//? backendに送るデータの型 命名は変えたい
-type RequestData = {
-  latitude: number;
-  longitude: number;
-  price?: number;
-};
+import { type RequestData, type ResponseData } from "#/utils/type";
 
 export const Route = createFileRoute("/")({
   component: () => {
+    const [requestData, setRequestData] = useState<RequestData | null>(null);
+    const [response, setResponse] = useState<ResponseData | null>(null);
     const [value, setValue] = useState<number>();
+
+    const navigate = useNavigate({ from: "/map" });
 
     const items: NativeSelectItem[] = [
       { label: "100円", value: "100" },
@@ -35,39 +32,48 @@ export const Route = createFileRoute("/")({
     ];
 
     let loop: number[] = [1, 2, 3, 4, 5, 6];
-    let requestData: RequestData = {
-      latitude: 0,
-      longitude: 0,
-      price: 0,
-    };
-    let response: ResponseData | null = null;
 
-    const sendLocationInfo = async (): Promise<void> => {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        requestData.latitude = position.coords.latitude;
-        requestData.longitude = position.coords.longitude;
-
-        // その時選択されている金額をリクエストデータに追加
-        requestData.price = value;
-        console.log("requestData: ", requestData);
-        await APIFetch({ requestData });
+    const sendLocationInfo = (): void => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setRequestData({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          price: value,
+        });
       });
     };
 
-    const APIFetch = async ({
-      requestData,
-    }: {
-      requestData: RequestData;
-    }): Promise<void> => {
-      console.log("fetching...");
-      response = await fetch(import.meta.env.VITE_BACKEND_URL, {
-        method: "GET",
-        // body: JSON.stringify(requestData),
-      })
-        .then((res) => res.json())
-        .catch((error) => console.error(error));
-      console.log("response: ", response);
-    };
+    useEffect(() => {
+      const APIFetch = async ({
+        requestData,
+      }: {
+        requestData: RequestData;
+      }): Promise<void> => {
+        console.log("request: ", requestData);
+        console.log("fetching...");
+
+        const data = await fetch(import.meta.env.VITE_BACKEND_URL, {
+          method: "GET",
+          // body: JSON.stringify(requestData),
+        })
+          .then((res) => res.json())
+          .catch((error) => console.error(error));
+
+        console.log("data: ", data);
+        if (data) {
+          setResponse(data as ResponseData);
+          await navigate({
+            to: "/map",
+            search: {
+              lat: data.destination_station.latitude,
+              lon: data.destination_station.longitude,
+              name: data.destination_station.name,
+            },
+          });
+        }
+      };
+      if (requestData !== null) APIFetch({ requestData });
+    }, [requestData]);
 
     return (
       <>
