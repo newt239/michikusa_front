@@ -54,7 +54,6 @@ export const Route = createFileRoute("/")({
 
         const data = await fetch(import.meta.env.VITE_BACKEND_URL, {
           method: "GET",
-          // body: JSON.stringify(requestData),
         })
           .then((res) => res.json())
           .catch((error) => console.error(error));
@@ -70,6 +69,7 @@ export const Route = createFileRoute("/")({
               name: data.destination_station.name,
             },
           });
+          localStorage.setItem("michikusa_station", JSON.stringify(data));
         }
       };
       if (requestData !== null) APIFetch({ requestData });
