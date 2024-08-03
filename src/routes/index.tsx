@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import BackgroundImage from "#/assets/backgroundImage.svg";
 
 import {
   Button,
@@ -73,7 +74,7 @@ export const Route = createFileRoute("/")({
             maxW="500px"
             position="fixed"
             right="0"
-            src="src/assets/backgroundImage.svg"
+            src="BackgroundImage"
             w="100dvw"
           />
           <Center>
