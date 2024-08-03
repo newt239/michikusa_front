@@ -2,18 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 import {
+  Box,
   Button,
   Center,
-  Container,
   Image,
   NativeSelect,
   NativeSelectItem,
-  Spacer,
   Text,
   VStack,
 } from "@yamada-ui/react";
 
-import BackgroundImage from "#/assets/backgroundImage.svg";
+import BackgroundImage from "#/assets/backgroundImage4.svg";
 
 //? backendに送るデータの型 命名は変えたい
 type RequestData = {
@@ -38,6 +37,8 @@ export const Route = createFileRoute("/")({
       latitude: 0,
       longitude: 0,
     };
+
+    let loop: number[] = [1, 2, 3, 4, 5, 6];
 
     const sendLocationInfo = (): RequestData => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -66,39 +67,62 @@ export const Route = createFileRoute("/")({
           right="0"
           w="100dvw"
         >
-          <Image
+          <VStack
             bottom="0"
+            gap=""
             left="0"
             margin="auto"
             maxW="500px"
+            overflow="clip"
             position="fixed"
             right="0"
-            src={BackgroundImage}
             w="100dvw"
-          />
-          <Center>
-            <VStack align="center" gap="24" h="auto">
-              <Text fontSize="8xl">みちくさ</Text>
-              <Spacer />
-              <Container w="sx">
-                <Button
-                  colorScheme="primary"
-                  onClick={sendLocationInfo}
-                  variant="solid"
-                >
-                  位置情報を取得
-                </Button>
-                <NativeSelect
-                  items={items}
-                  onChange={(e) => setValue(Number(e.target.value))}
-                  placeholder="金額設定"
-                  value={value}
+          >
+            {loop.map((index) => {
+              return (
+                <Image
+                  key={index}
+                  position="relative"
+                  right={index * Math.random() * 100 + 10}
+                  src={BackgroundImage}
+                  w="1600px"
                 />
-              </Container>
-
-              {/* 仮表示 */}
-              <Container w="xl"></Container>
-            </VStack>
+              );
+            })}
+          </VStack>
+          <Center>
+            <Box
+              bg="background"
+              border="solid"
+              padding="30px"
+              rounded="xl"
+              z="10"
+            >
+              <VStack align="center" gap="24" h="auto">
+                <Text fontSize="8xl">みちくさ</Text>
+                <VStack align="center" direction="column">
+                  <Button
+                    colorScheme="primary"
+                    fontSize="4xl"
+                    onClick={sendLocationInfo}
+                    padding="10px"
+                    size="lg"
+                    variant="solid"
+                  >
+                    みちくさを食う
+                  </Button>
+                  <NativeSelect
+                    fontSize="md"
+                    items={items}
+                    onChange={(e) => setValue(Number(e.target.value))}
+                    placeholder="金額をえらぶ"
+                    size="lg"
+                    value={value}
+                    w="150px"
+                  />
+                </VStack>
+              </VStack>
+            </Box>
           </Center>
         </Center>
       </>
