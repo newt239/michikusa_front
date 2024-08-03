@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import {
   Box,
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -33,17 +32,7 @@ const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
       setActiveSnapPoint={setSnap}
       snapPoints={["100px", "220px", "450px", 0.9]}
     >
-      <Drawer.Trigger asChild>
-        <Button
-          bottom="6"
-          colorScheme="primary"
-          pos="fixed"
-          right="6"
-          zIndex={1000}
-        >
-          施設を見る
-        </Button>
-      </Drawer.Trigger>
+      <Drawer.Trigger />
       <Drawer.Portal>
         <Drawer.Content className={styles.content}>
           <div className={styles.innerContent}>

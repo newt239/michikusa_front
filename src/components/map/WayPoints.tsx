@@ -1,33 +1,6 @@
-import {
-  Box,
-  Card,
-  Flex,
-  Step,
-  Stepper,
-  Steps,
-  StepSeparator,
-  StepStatus,
-  StepTitle,
-  VStack,
-} from "@yamada-ui/react";
+import { Box, Card, Flex } from "@yamada-ui/react";
 
-//React.FC
-const WayPoints = () => {
-  //colorSchemeの情報もbackendから取得する
-  //semantic.tsに記述しておく
-  // M17の改行が効かない おそらくglobalでwhite-space: preを指定している??
-  // 仮のデータ
-  const steps: Steps = [
-    {
-      title: "東京",
-      statusProps: { complete: `M\n17` },
-    },
-    {
-      title: "大手町",
-      statusProps: { complete: `M\n18` },
-    },
-  ];
-
+const WayPoints: React.FC = () => {
   return (
     <Card
       bg="white"
@@ -38,31 +11,53 @@ const WayPoints = () => {
       shadow="xl"
       variant="elevated"
     >
-      <VStack>
-        <Stepper colorScheme="test" index={2} size={"lg"}>
-          {steps.map(({ title, statusProps }, index) => (
-            <Step key={index}>
-              <Flex alignItems="center" flexDirection="column">
-                <StepStatus {...statusProps} />
-                <StepTitle fontSize="sm">{title}</StepTitle>
-              </Flex>
-              <StepSeparator>
-                <Box
-                  bg="white"
-                  display="inline-block"
-                  left="50%"
-                  pos="relative"
-                  px={4}
-                  top="-10px"
-                  transform="translateX(-50%)"
-                >
-                  丸ノ内線
-                </Box>
-              </StepSeparator>
-            </Step>
-          ))}
-        </Stepper>
-      </VStack>
+      <Flex alignItems="center">
+        <Flex
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
+          <Flex
+            alignItems="center"
+            bg="test.500"
+            borderRadius="full"
+            color="white"
+            h="3rem"
+            justifyContent="center"
+            w="3rem"
+          >
+            <Box>M17</Box>
+          </Flex>
+          <Box>東京</Box>
+        </Flex>
+        <Box bg="test.500" borderRadius="full" h="0.125rem" margin={4} w="100%">
+          <Box
+            bg="white"
+            display="inline-block"
+            left="50%"
+            pos="relative"
+            px={4}
+            top="-10px"
+            transform="translateX(-50%)"
+          >
+            丸ノ内線
+          </Box>
+        </Box>
+        <Flex alignItems="center" flexDirection="column">
+          <Flex
+            alignItems="center"
+            bg="test.500"
+            borderRadius="full"
+            color="white"
+            h="3rem"
+            justifyContent="center"
+            w="3rem"
+          >
+            <Box>M17</Box>
+          </Flex>
+          <Box>大手町</Box>
+        </Flex>
+      </Flex>
     </Card>
   );
 };
