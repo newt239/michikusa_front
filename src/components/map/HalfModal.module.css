@@ -10,6 +10,7 @@
   right: 0;
   z-index: 1001;
   height: 100%;
+  box-shadow: var(--ui-shadows-xl);
 }
 
 .innerContent {

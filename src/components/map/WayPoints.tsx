@@ -1,5 +1,6 @@
 import {
   Box,
+  Card,
   Flex,
   Step,
   Stepper,
@@ -28,7 +29,15 @@ const WayPoints = () => {
   ];
 
   return (
-    <Box bg="white" borderRadius="full" m={4} px={8} py={4}>
+    <Card
+      bg="white"
+      borderRadius="full"
+      m={4}
+      px={8}
+      py={4}
+      shadow="xl"
+      variant="elevated"
+    >
       <VStack>
         <Stepper colorScheme="test" index={2} size={"lg"}>
           {steps.map(({ title, statusProps }, index) => (
@@ -54,7 +63,7 @@ const WayPoints = () => {
           ))}
         </Stepper>
       </VStack>
-    </Box>
+    </Card>
   );
 };
 
