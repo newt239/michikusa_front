@@ -12,8 +12,9 @@ import {
   VStack,
 } from "@yamada-ui/react";
 
+import type { RequestData, ResponseData } from "#/utils/type";
+
 import BackgroundImage from "#/assets/backgroundImage4.svg";
-import { type RequestData, type ResponseData } from "#/utils/type";
 
 export const Route = createFileRoute("/")({
   component: () => {
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/")({
     const [response, setResponse] = useState<ResponseData | null>(null);
     const [value, setValue] = useState<number>();
 
-    const navigate = useNavigate({ from: "/map" });
+    const navigate = useNavigate();
 
     const items: NativeSelectItem[] = [
       { label: "100円", value: "100" },
