@@ -22,6 +22,7 @@ export const Route = createFileRoute("/")({
     const [requestData, setRequestData] = useState<RequestData | null>(null);
     const [response, setResponse] = useState<ResponseData | null>(null);
     const [value, setValue] = useState<number>();
+    const [errorString, setErrorString] = useState<string>();
 
     const navigate = useNavigate();
 
@@ -65,7 +66,10 @@ export const Route = createFileRoute("/")({
           .catch((error) => console.error(error));
 
         console.log("data: ", data);
-        if (data) {
+        // 仮
+        if (data.message === "Internal Server Error (getNearestStation)") {
+          setErrorString("最寄り駅が見つかりませんでした");
+        } else if (data) {
           setResponse(data as ResponseData);
           await navigate({
             to: "/map",
@@ -126,31 +130,40 @@ export const Route = createFileRoute("/")({
               z="10"
             >
               <VStack align="center" gap="24" h="auto">
-                <VStack align="center">
-                  <Image src={michikusaIcon} w="200px" />
-                  <Text fontSize="8xl">みちくさ</Text>
-                </VStack>
-                <VStack align="center" direction="column">
-                  <Button
-                    colorScheme="primary"
-                    fontSize="4xl"
-                    onClick={sendLocationInfo}
-                    padding="10px"
-                    size="lg"
-                    variant="solid"
-                  >
-                    みちくさを食う
-                  </Button>
-                  <NativeSelect
-                    fontSize="md"
-                    items={items}
-                    onChange={(e) => setValue(Number(e.target.value))}
-                    placeholder="金額をえらぶ"
-                    size="lg"
-                    value={value}
-                    w="150px"
-                  />
-                </VStack>
+                {errorString && (
+                  <Text color="red" fontSize="xl">
+                    {errorString}
+                  </Text>
+                )}
+                {errorString === undefined && (
+                  <>
+                    <VStack align="center">
+                      <Image src={michikusaIcon} w="200px" />
+                      <Text fontSize="8xl">みちくさ</Text>
+                    </VStack>
+                    <VStack align="center" direction="column">
+                      <Button
+                        colorScheme="primary"
+                        fontSize="4xl"
+                        onClick={sendLocationInfo}
+                        padding="10px"
+                        size="lg"
+                        variant="solid"
+                      >
+                        みちくさを食う
+                      </Button>
+                      <NativeSelect
+                        fontSize="md"
+                        items={items}
+                        onChange={(e) => setValue(Number(e.target.value))}
+                        placeholder="金額をえらぶ"
+                        size="lg"
+                        value={value}
+                        w="150px"
+                      />
+                    </VStack>
+                  </>
+                )}
               </VStack>
             </Box>
           </Center>
