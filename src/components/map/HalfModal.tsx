@@ -15,14 +15,14 @@ import { Drawer } from "vaul";
 
 import styles from "./HalfModal.module.css";
 
-import { Facility, Station } from "#/utils/type";
+import { Facility } from "#/utils/type";
 
 type Props = {
-  station: Station;
+  name: string;
   facilityList: Facility[];
 };
 
-const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
+const HalfModal: React.FC<Props> = ({ name, facilityList }) => {
   const [snap, setSnap] = useState<number | string | null>("100px");
 
   return (
@@ -41,7 +41,7 @@ const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
             <Box>
               <Drawer.Title asChild>
                 <Heading as="h2" pt={0} textAlign="center">
-                  {station.name}
+                  {name}
                 </Heading>
               </Drawer.Title>
               <Drawer.Description asChild>

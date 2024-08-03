@@ -27,11 +27,11 @@ export const Route = createFileRoute("/map")({
   component: () => {
     const navigate = useNavigate();
     const { lat, lon } = Route.useSearch();
+    const [facilityList, setFacilityList] = useState<Facility[]>([]);
     if (!lat || !lon) {
       navigate({ to: "/" });
       return null;
     }
-    const [facilityList, setFacilityList] = useState<Facility[]>([]);
     const station = {
       name: "東京駅",
       latitude: 35.680959106959,
@@ -43,6 +43,7 @@ export const Route = createFileRoute("/map")({
         const data = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/locations-list`,
           {
+            method: "GET",
             body: JSON.stringify({
               latitude: lat,
               longitude: lon,
@@ -62,7 +63,7 @@ export const Route = createFileRoute("/map")({
           <WayPoints />
         </Box>
         <Box zIndex={1001}>
-          <HalfModal facilityList={facilityList} station={station} />
+          <HalfModal facilityList={facilityList} name={station.name} />
         </Box>
       </Box>
     );
