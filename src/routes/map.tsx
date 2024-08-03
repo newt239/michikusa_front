@@ -5,9 +5,23 @@ import { Box } from "@yamada-ui/react";
 import HalfModal from "#/components/map/HalfModal";
 import Map from "#/components/map/Map";
 import WayPoints from "#/components/map/WayPoints";
+
 import "leaflet/dist/leaflet.css";
 
+type MapRouteSearch = {
+  lat: number;
+  lon: number;
+  name: string;
+};
+
 export const Route = createFileRoute("/map")({
+  validateSearch: (search: Record<string, unknown>): MapRouteSearch => {
+    return {
+      lat: Number(search.latitude),
+      lon: Number(search.longitude),
+      name: String(search.name),
+    };
+  },
   component: () => {
     const station = {
       name: "東京駅",
