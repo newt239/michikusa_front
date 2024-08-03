@@ -4,7 +4,6 @@ import { Box } from "@yamada-ui/react";
 
 import HalfModal from "#/components/map/HalfModal";
 import Map from "#/components/map/Map";
-import WayPoints from "#/components/map/WayPoints";
 import "leaflet/dist/leaflet.css";
 
 export const Route = createFileRoute("/map")({
@@ -61,9 +60,7 @@ export const Route = createFileRoute("/map")({
     return (
       <Box h="full" w="full">
         <Map facilityList={facilityList} station={station} />
-        <Box left={0} pos="fixed" right={0} top={0} zIndex={1001}>
-          <WayPoints />
-        </Box>
+        <Box left={0} pos="fixed" right={0} top={0} zIndex={1001}></Box>
         <Box zIndex={1001}>
           <HalfModal facilityList={facilityList} station={station} />
         </Box>
