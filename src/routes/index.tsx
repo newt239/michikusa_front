@@ -12,8 +12,6 @@ import {
   VStack,
 } from "@yamada-ui/react";
 
-import Waypoint from "#/components/map/waypoints";
-
 //? backendに送るデータの型 命名は変えたい
 type RequestData = {
   latitude: number;
@@ -72,11 +70,6 @@ export const Route = createFileRoute("/")({
                 placeholder="金額設定"
                 value={value}
               />
-            </Container>
-
-            {/* 仮表示 */}
-            <Container w="xl">
-              <Waypoint />
             </Container>
           </VStack>
         </Center>

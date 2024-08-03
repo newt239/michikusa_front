@@ -11,7 +11,7 @@ import {
 } from "@yamada-ui/react";
 
 //React.FC
-const waypoint = () => {
+const WayPoints = () => {
   //colorSchemeの情報もbackendから取得する
   //semantic.tsに記述しておく
   // M17の改行が効かない おそらくglobalでwhite-space: preを指定している??
@@ -57,4 +57,4 @@ const waypoint = () => {
   );
 };
 
-export default waypoint;
+export default WayPoints;
