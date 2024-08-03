@@ -15,22 +15,23 @@ import { Drawer } from "vaul";
 
 import styles from "./HalfModal.module.css";
 
-import { Facility, Station } from "#/utils/type";
+import { Facility } from "#/utils/type";
 
 type Props = {
-  station: Station;
+  name: string;
   facilityList: Facility[];
 };
 
-const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
+const HalfModal: React.FC<Props> = ({ name, facilityList }) => {
   const [snap, setSnap] = useState<number | string | null>("100px");
 
   return (
     <Drawer.Root
       activeSnapPoint={snap}
+      disablePreventScroll={false}
       open={true}
       setActiveSnapPoint={setSnap}
-      snapPoints={["100px", "220px", "450px", 0.9]}
+      snapPoints={["115px", "240px", "480px", 0.9]}
     >
       <Drawer.Trigger />
       <Drawer.Portal>
@@ -38,9 +39,16 @@ const HalfModal: React.FC<Props> = ({ station, facilityList }) => {
           <div className={styles.innerContent}>
             <div className={styles.handle} />
             <Box>
-              <Heading as="h2" pt={0} textAlign="center">
-                {station.name}
-              </Heading>
+              <Drawer.Title asChild>
+                <Heading as="h2" pt={0} textAlign="center">
+                  {name}
+                </Heading>
+              </Drawer.Title>
+              <Drawer.Description asChild>
+                <Heading as="h3" fontSize="md">
+                  近くにある施設
+                </Heading>
+              </Drawer.Description>
               <VStack my="4">
                 {facilityList.map((facility) => (
                   <Card key={facility.name} variant="outline">
