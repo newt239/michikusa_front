@@ -1,22 +1,6 @@
-import { Box, Card, Flex, Steps } from "@yamada-ui/react";
+import { Box, Card, Flex } from "@yamada-ui/react";
 
-//React.FC
-const WayPoints = () => {
-  //colorSchemeの情報もbackendから取得する
-  //semantic.tsに記述しておく
-  // M17の改行が効かない おそらくglobalでwhite-space: preを指定している??
-  // 仮のデータ
-  const steps: Steps = [
-    {
-      title: "東京",
-      statusProps: { complete: `M\n17` },
-    },
-    {
-      title: "大手町",
-      statusProps: { complete: `M\n18` },
-    },
-  ];
-
+const WayPoints: React.FC = () => {
   return (
     <Card
       bg="white"
