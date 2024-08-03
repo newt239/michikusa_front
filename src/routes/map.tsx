@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { Box } from "@yamada-ui/react";
@@ -19,12 +19,18 @@ type MapRouteSearch = {
 export const Route = createFileRoute("/map")({
   validateSearch: (search: Record<string, unknown>): MapRouteSearch => {
     return {
-      lat: Number(search.latitude),
-      lon: Number(search.longitude),
+      lat: Number(search.lat),
+      lon: Number(search.lon),
       name: String(search.name),
     };
   },
   component: () => {
+    const navigate = useNavigate();
+    const { lat, lon } = Route.useSearch();
+    if (!lat || !lon) {
+      navigate({ to: "/" });
+      return null;
+    }
     const [facilityList, setFacilityList] = useState<Facility[]>([]);
     const station = {
       name: "東京駅",
@@ -35,7 +41,13 @@ export const Route = createFileRoute("/map")({
     useEffect(() => {
       const getFacilityList = async () => {
         const data = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/locations-list`
+          `${import.meta.env.VITE_BACKEND_URL}/locations-list`,
+          {
+            body: JSON.stringify({
+              latitude: lat,
+              longitude: lon,
+            }),
+          }
         );
         const json: { facilities: Facility[] } = await data.json();
         setFacilityList(json.facilities);
