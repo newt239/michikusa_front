@@ -11,6 +11,10 @@
   z-index: 1001;
   height: 100%;
   box-shadow: var(--ui-shadows-xl);
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 .innerContent {
@@ -28,4 +32,5 @@
   border-radius: 9999px;
   background-color: #d4d4d8;
   margin-bottom: 1rem;
+  cursor: grab;
 }
