@@ -66,6 +66,16 @@ export const Route = createFileRoute("/")({
           right="0"
           w="100dvw"
         >
+          <Image
+            bottom="0"
+            left="0"
+            margin="auto"
+            maxW="500px"
+            position="fixed"
+            right="0"
+            src="src/assets/backgroundImage.svg"
+            w="100dvw"
+          />
           <Center>
             <VStack align="center" gap="24" h="auto">
               <Text fontSize="8xl">みちくさ</Text>
