@@ -9,6 +9,17 @@ type Props = {
 };
 
 const Map: React.FC<Props> = ({ station, facilityList }) => {
+  const stationIcon = new Leaflet.Icon({
+    iconUrl:
+      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+    shadowUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
   const facilityIcon = new Leaflet.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
@@ -30,7 +41,10 @@ const Map: React.FC<Props> = ({ station, facilityList }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[station.latitude, station.longitude]}>
+      <Marker
+        icon={stationIcon}
+        position={[station.latitude, station.longitude]}
+      >
         <Popup>{station.name}</Popup>
       </Marker>
       {facilityList.map((facility) => (
