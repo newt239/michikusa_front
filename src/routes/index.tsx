@@ -15,6 +15,7 @@ import {
 import type { RequestData, ResponseData } from "#/utils/type";
 
 import BackgroundImage from "#/assets/backgroundImage4.svg";
+import michikusaIcon from "#/assets/michikusaIcon.svg";
 
 export const Route = createFileRoute("/")({
   component: () => {
@@ -125,7 +126,10 @@ export const Route = createFileRoute("/")({
               z="10"
             >
               <VStack align="center" gap="24" h="auto">
-                <Text fontSize="8xl">みちくさ</Text>
+                <VStack align="center">
+                  <Image src={michikusaIcon} w="200px" />
+                  <Text fontSize="8xl">みちくさ</Text>
+                </VStack>
                 <VStack align="center" direction="column">
                   <Button
                     colorScheme="primary"
