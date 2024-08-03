@@ -13,6 +13,7 @@ import {
 } from "@yamada-ui/react";
 
 import BackgroundImage from "#/assets/backgroundImage4.svg";
+import { type ResponseData } from "#/utils/type";
 
 //? backendに送るデータの型 命名は変えたい
 type RequestData = {
@@ -33,25 +34,39 @@ export const Route = createFileRoute("/")({
       { label: "500円", value: "500" },
     ];
 
+    let loop: number[] = [1, 2, 3, 4, 5, 6];
     let requestData: RequestData = {
       latitude: 0,
       longitude: 0,
+      price: 0,
     };
+    let response: ResponseData | null = null;
 
-    let loop: number[] = [1, 2, 3, 4, 5, 6];
-
-    const sendLocationInfo = (): RequestData => {
-      navigator.geolocation.getCurrentPosition((position) => {
+    const sendLocationInfo = async (): Promise<void> => {
+      navigator.geolocation.getCurrentPosition(async (position) => {
         requestData.latitude = position.coords.latitude;
         requestData.longitude = position.coords.longitude;
+
+        // その時選択されている金額をリクエストデータに追加
+        requestData.price = value;
+        console.log("requestData: ", requestData);
+        await APIFetch({ requestData });
       });
+    };
 
-      // その時選択されている金額をリクエストデータに追加
-      requestData.price = value;
-
-      console.log(requestData);
-
-      return requestData;
+    const APIFetch = async ({
+      requestData,
+    }: {
+      requestData: RequestData;
+    }): Promise<void> => {
+      console.log("fetching...");
+      response = await fetch(import.meta.env.VITE_BACKEND_URL, {
+        method: "GET",
+        // body: JSON.stringify(requestData),
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error(error));
+      console.log("response: ", response);
     };
 
     return (
