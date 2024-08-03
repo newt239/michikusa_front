@@ -1,3 +1,4 @@
-import { colors } from "./colors"
+import { colors } from "./colors";
+import { fonts } from "./fonts";
 
-export default { colors }
+export default { colors, fonts };
