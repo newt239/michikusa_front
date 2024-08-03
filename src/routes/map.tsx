@@ -6,7 +6,7 @@ import { Box } from "@yamada-ui/react";
 import HalfModal from "#/components/map/HalfModal";
 import Map from "#/components/map/Map";
 import WayPoints from "#/components/map/WayPoints";
-import { Facility } from "#/utils/type";
+import { Facility, ResponseData } from "#/utils/type";
 
 import "leaflet/dist/leaflet.css";
 
@@ -28,11 +28,7 @@ export const Route = createFileRoute("/map")({
     const navigate = useNavigate();
     const { lat, lon, name } = Route.useSearch();
     const [facilityList, setFacilityList] = useState<Facility[]>([]);
-    const [station, setStation] = useState<any>({
-      name: "東京駅",
-      latitude: 35.680959106959,
-      longitude: 139.76730681777,
-    });
+    const [station, setStation] = useState<ResponseData | null>(null);
 
     if (!lat || !lon) {
       navigate({ to: "/" });
@@ -63,15 +59,10 @@ export const Route = createFileRoute("/map")({
           station={{ latitude: lat, longitude: lon, name }}
         />
         <Box left={0} pos="fixed" right={0} top={0} zIndex={1001}>
-          <WayPoints
-            color_code={station.railway_color}
-            destination_station={name}
-            nearest_station={station.nearest_station}
-            railway_name={station.railway_name}
-          />
+          <WayPoints departure={station} destination_station={name} />
         </Box>
         <Box zIndex={1001}>
-          <HalfModal facilityList={facilityList} name={station.name} />
+          <HalfModal facilityList={facilityList} name={name} />
         </Box>
       </Box>
     );

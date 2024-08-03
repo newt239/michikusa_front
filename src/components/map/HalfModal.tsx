@@ -55,7 +55,6 @@ const HalfModal: React.FC<Props> = ({ name, facilityList }) => {
                     <CardHeader>
                       <Heading size="md">{facility.name}</Heading>
                     </CardHeader>
-
                     <CardBody>
                       <Text>
                         {facility.genre} / {facility.distance}m

@@ -1,19 +1,14 @@
 import { Box, Card, Flex } from "@yamada-ui/react";
 
+import { ResponseData } from "#/utils/type";
+
 type Props = {
-  nearest_station?: string;
-  railway_name?: string;
-  color_code?: string;
+  departure: ResponseData | null;
   destination_station: string | null;
 };
 
-const WayPoints: React.FC<Props> = ({
-  nearest_station,
-  railway_name,
-  color_code,
-  destination_station,
-}) => {
-  if (color_code) return null;
+const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
+  if (!departure) return null;
   return (
     <Card
       bg="white"
@@ -24,7 +19,7 @@ const WayPoints: React.FC<Props> = ({
       shadow="xl"
       variant="elevated"
     >
-      {nearest_station ? (
+      {departure ? (
         <Flex alignItems="center">
           <Flex
             alignItems="center"
@@ -42,7 +37,7 @@ const WayPoints: React.FC<Props> = ({
             >
               <Box>M17</Box>
             </Flex>
-            <Box>{nearest_station}</Box>
+            <Box>{departure.nearest_station.name}</Box>
           </Flex>
           <Box
             bg="test.500"
@@ -60,7 +55,7 @@ const WayPoints: React.FC<Props> = ({
               top="-10px"
               transform="translateX(-50%)"
             >
-              {railway_name}
+              {departure.railway_name}
             </Box>
           </Box>
           <Flex alignItems="center" flexDirection="column">
@@ -80,7 +75,7 @@ const WayPoints: React.FC<Props> = ({
         </Flex>
       ) : (
         <Flex>
-          <Box>{destination_station}</Box>
+          <Box>みちくさ</Box>
         </Flex>
       )}
     </Card>
