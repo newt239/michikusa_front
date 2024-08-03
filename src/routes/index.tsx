@@ -99,7 +99,7 @@ export const Route = createFileRoute("/")({
 
               {/* 仮表示 */}
               <Container w="xl">
-                <Waypoint />
+                <Waypoints />
               </Container>
             </VStack>
           </Center>
