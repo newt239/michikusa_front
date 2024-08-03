@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Button,
   Center,
-  Container,
   Image,
   NativeSelect,
   NativeSelectItem,
@@ -80,24 +79,27 @@ export const Route = createFileRoute("/")({
             <VStack align="center" gap="24" h="auto">
               <Text fontSize="8xl">みちくさ</Text>
               <Spacer />
-              <Container w="sx">
+              <VStack align="center" direction="column">
                 <Button
                   colorScheme="primary"
+                  fontSize="4xl"
                   onClick={sendLocationInfo}
+                  padding="10px"
+                  size="lg"
                   variant="solid"
                 >
-                  位置情報を取得
+                  みちくさを食う
                 </Button>
                 <NativeSelect
+                  fontSize="md"
                   items={items}
                   onChange={(e) => setValue(Number(e.target.value))}
-                  placeholder="金額設定"
+                  placeholder="金額をえらぶ"
+                  size="lg"
                   value={value}
+                  w="150px"
                 />
-              </Container>
-
-              {/* 仮表示 */}
-              <Container w="xl"></Container>
+              </VStack>
             </VStack>
           </Center>
         </Center>
