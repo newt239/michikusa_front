@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   Box,
@@ -23,6 +23,8 @@ export const Route = createFileRoute("/")({
     const [response, setResponse] = useState<ResponseData | null>(null);
     const [value, setValue] = useState<number>();
     const [errorString, setErrorString] = useState<string>();
+
+    const memoResult = useMemo(() => Math.random() * 200, []);
 
     const navigate = useNavigate();
 
@@ -114,7 +116,7 @@ export const Route = createFileRoute("/")({
                 <Image
                   key={index}
                   position="relative"
-                  right={index * Math.random() * 200 + 20}
+                  right={index * memoResult + 20}
                   src={BackgroundImage}
                   w="1600px"
                 />
