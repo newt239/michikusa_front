@@ -12,12 +12,18 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as MapImport } from './routes/map'
+import { Route as CreditImport } from './routes/credit'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
 const MapRoute = MapImport.update({
   path: '/map',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CreditRoute = CreditImport.update({
+  path: '/credit',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -37,6 +43,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/credit': {
+      id: '/credit'
+      path: '/credit'
+      fullPath: '/credit'
+      preLoaderRoute: typeof CreditImport
+      parentRoute: typeof rootRoute
+    }
     '/map': {
       id: '/map'
       path: '/map'
@@ -49,7 +62,11 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexRoute, MapRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  CreditRoute,
+  MapRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -60,11 +77,15 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, MapRoute })
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/credit",
         "/map"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/credit": {
+      "filePath": "credit.tsx"
     },
     "/map": {
       "filePath": "map.tsx"
