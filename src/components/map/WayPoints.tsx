@@ -8,7 +8,6 @@ type Props = {
 };
 
 const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
-  if (!departure) return null;
   return (
     <Card
       bg="white"
@@ -28,7 +27,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
           >
             <Flex
               alignItems="center"
-              bg="test.500"
+              bg={departure.railway_color || "gray.500"}
               borderRadius="full"
               color="white"
               h="3rem"
@@ -40,7 +39,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
             <Box>{departure.nearest_station.name}</Box>
           </Flex>
           <Box
-            bg="test.500"
+            bg={departure.railway_color || "gray.500"}
             borderRadius="full"
             h="0.125rem"
             margin={4}
@@ -61,7 +60,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
           <Flex alignItems="center" flexDirection="column">
             <Flex
               alignItems="center"
-              bg="test.500"
+              bg={departure.railway_color || "gray.500"}
               borderRadius="full"
               color="white"
               h="3rem"
@@ -74,7 +73,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
           </Flex>
         </Flex>
       ) : (
-        <Flex>
+        <Flex justifyContent="center">
           <Box>みちくさ</Box>
         </Flex>
       )}

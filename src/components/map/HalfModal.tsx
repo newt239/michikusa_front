@@ -4,10 +4,9 @@ import { useState } from "react";
 
 import {
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   Heading,
+  LinkBox,
+  LinkOverlay,
   Text,
   VStack,
 } from "@yamada-ui/react";
@@ -41,26 +40,33 @@ const HalfModal: React.FC<Props> = ({ name, facilityList }) => {
             <Box>
               <Drawer.Title asChild>
                 <Heading as="h2" pt={0} textAlign="center">
-                  {name}
+                  {name === "undefined" ? "近くにある施設" : name}
                 </Heading>
               </Drawer.Title>
               <Drawer.Description asChild>
                 <Heading as="h3" fontSize="md">
-                  近くにある施設
+                  {name === "undefined" ? "10件" : "近くにある施設"}
                 </Heading>
               </Drawer.Description>
               <VStack my="4">
                 {facilityList.map((facility) => (
-                  <Card key={facility.name} variant="outline">
-                    <CardHeader>
-                      <Heading size="md">{facility.name}</Heading>
-                    </CardHeader>
-                    <CardBody>
-                      <Text>
-                        {facility.genre} / {facility.distance}m
-                      </Text>
-                    </CardBody>
-                  </Card>
+                  <LinkBox
+                    border="1px solid"
+                    borderColor="inherit"
+                    boxShadow="md"
+                    key={facility.name}
+                    p="md"
+                    rounded="md"
+                  >
+                    <Heading size="md">
+                      <LinkOverlay href={facility.map_url} isExternal>
+                        {facility.name}
+                      </LinkOverlay>
+                    </Heading>
+                    <Text>
+                      {facility.genre} / {facility.distance}m
+                    </Text>
+                  </LinkBox>
                 ))}
               </VStack>
             </Box>
