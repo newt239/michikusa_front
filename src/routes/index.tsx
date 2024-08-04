@@ -171,7 +171,7 @@ export const Route = createFileRoute("/")({
                       value={value}
                       w="150px"
                     />
-                    <Link to="/">
+                    <Link to="/credit">
                       <YamadaLink>利用しているデータについて</YamadaLink>
                     </Link>
                   </VStack>
