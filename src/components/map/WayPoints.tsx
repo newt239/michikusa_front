@@ -8,7 +8,6 @@ type Props = {
 };
 
 const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
-  if (!departure) return null;
   return (
     <Card
       bg="white"
@@ -74,7 +73,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
           </Flex>
         </Flex>
       ) : (
-        <Flex>
+        <Flex justifyContent="center">
           <Box>みちくさ</Box>
         </Flex>
       )}
