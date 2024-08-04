@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 
 import { Icon } from "@iconify/react";
@@ -6,11 +6,13 @@ import {
   Box,
   Button,
   Center,
+  Heading,
   Image,
   NativeSelect,
   NativeSelectItem,
   Text,
   VStack,
+  Link as YamadaLink,
 } from "@yamada-ui/react";
 
 import type { RequestData, ResponseData } from "#/utils/type";
@@ -141,36 +143,38 @@ export const Route = createFileRoute("/")({
                   </Text>
                 )}
                 {errorString === undefined && (
-                  <>
-                    <VStack align="center">
-                      <Image src={michikusaIcon} w="200px" />
-                      <Text fontSize="8xl">みちくさ</Text>
-                    </VStack>
-                    <VStack align="center" direction="column">
-                      <Button
-                        colorScheme="primary"
-                        fontSize="4xl"
-                        isLoading={isLoading}
-                        loadingIcon={<Icon icon="svg-spinners:180-ring" />}
-                        loadingPlacement="end"
-                        onClick={sendLocationInfo}
-                        padding="10px"
-                        size="lg"
-                        variant="solid"
-                      >
-                        みちくさを食う
-                      </Button>
-                      <NativeSelect
-                        fontSize="md"
-                        items={items}
-                        onChange={(e) => setValue(Number(e.target.value))}
-                        placeholder="金額をえらぶ"
-                        size="lg"
-                        value={value}
-                        w="150px"
-                      />
-                    </VStack>
-                  </>
+                  <VStack align="center">
+                    <Image src={michikusaIcon} w="200px" />
+                    <Heading as="h1" fontSize="8xl">
+                      みちくさ
+                    </Heading>
+                    <Text>一本の電車でお散歩。</Text>
+                    <Button
+                      colorScheme="primary"
+                      fontSize="4xl"
+                      isLoading={isLoading}
+                      loadingIcon={<Icon icon="svg-spinners:180-ring" />}
+                      loadingPlacement="end"
+                      onClick={sendLocationInfo}
+                      padding="10px"
+                      size="lg"
+                      variant="solid"
+                    >
+                      みちくさを食う
+                    </Button>
+                    <NativeSelect
+                      fontSize="md"
+                      items={items}
+                      onChange={(e) => setValue(Number(e.target.value))}
+                      placeholder="金額をえらぶ"
+                      size="lg"
+                      value={value}
+                      w="150px"
+                    />
+                    <Link to="/">
+                      <YamadaLink>利用しているデータについて</YamadaLink>
+                    </Link>
+                  </VStack>
                 )}
               </VStack>
             </Box>
