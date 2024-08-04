@@ -29,11 +29,15 @@ export const Route = createFileRoute("/")({
     const navigate = useNavigate();
 
     const items: NativeSelectItem[] = [
-      { label: "100円", value: "100" },
       { label: "200円", value: "200" },
       { label: "300円", value: "300" },
       { label: "400円", value: "400" },
       { label: "500円", value: "500" },
+      { label: "600円", value: "600" },
+      { label: "700円", value: "700" },
+      { label: "800円", value: "800" },
+      { label: "900円", value: "900" },
+      { label: "1000円", value: "1000" },
     ];
 
     let loop: number[] = [1, 2, 3, 4, 5, 6];
