@@ -58,8 +58,6 @@ export const Route = createFileRoute("/")({
       }: {
         requestData: RequestData;
       }): Promise<void> => {
-        console.log("request: ", requestData);
-        console.log("fetching...");
 
         const data = await fetch(
           import.meta.env.VITE_BACKEND_URL +
@@ -71,7 +69,6 @@ export const Route = createFileRoute("/")({
           .then((res) => res.json())
           .catch((error) => console.error(error));
 
-        console.log("data: ", data);
         // 仮
         if (data.message === "Internal Server Error (getNearestStation)") {
           setErrorString("最寄り駅が見つかりませんでした");
