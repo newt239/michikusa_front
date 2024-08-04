@@ -71,7 +71,7 @@ export const Route = createFileRoute("/")({
 
         // 仮
         if (data.message === "Internal Server Error (getNearestStation)") {
-          setErrorString("最寄り駅が見つかりませんでした");
+          setErrorString("近くの駅が見つかりませんでした");
         } else if (data) {
           setResponse(data as ResponseData);
           await navigate({
