@@ -15,7 +15,7 @@ import {
   Link as YamadaLink,
 } from "@yamada-ui/react";
 
-import type { RequestData, ResponseData } from "#/utils/type";
+import type { RequestData } from "#/utils/type";
 
 import BackgroundImage from "#/assets/backgroundImage4.svg";
 import michikusaIcon from "#/assets/michikusaIcon.svg";
@@ -23,7 +23,6 @@ import michikusaIcon from "#/assets/michikusaIcon.svg";
 export const Route = createFileRoute("/")({
   component: () => {
     const [requestData, setRequestData] = useState<RequestData | null>(null);
-    const [response, setResponse] = useState<ResponseData | null>(null);
     const [value, setValue] = useState<number>();
     const [errorString, setErrorString] = useState<string>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -77,7 +76,6 @@ export const Route = createFileRoute("/")({
         if (data.message === "Internal Server Error (getNearestStation)") {
           setErrorString("近くの駅が見つかりませんでした");
         } else if (data) {
-          setResponse(data as ResponseData);
           localStorage.setItem("michikusa_station", JSON.stringify(data));
           await navigate({
             to: "/map",
