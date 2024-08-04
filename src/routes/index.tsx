@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 
+import { Icon } from "@iconify/react";
 import {
   Box,
   Button,
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/")({
     const [response, setResponse] = useState<ResponseData | null>(null);
     const [value, setValue] = useState<number>();
     const [errorString, setErrorString] = useState<string>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const memoResult = useMemo(() => Math.random() * 200, []);
 
@@ -43,6 +45,7 @@ export const Route = createFileRoute("/")({
     let loop: number[] = [1, 2, 3, 4, 5, 6];
 
     const sendLocationInfo = (): void => {
+      setIsLoading(true);
       navigator.geolocation.getCurrentPosition((position) => {
         setRequestData({
           latitude: position.coords.latitude,
@@ -58,7 +61,6 @@ export const Route = createFileRoute("/")({
       }: {
         requestData: RequestData;
       }): Promise<void> => {
-
         const data = await fetch(
           import.meta.env.VITE_BACKEND_URL +
             `?latitude=${requestData.latitude}&longitude=${requestData.longitude}&price=${requestData.price}`,
@@ -74,6 +76,7 @@ export const Route = createFileRoute("/")({
           setErrorString("近くの駅が見つかりませんでした");
         } else if (data) {
           setResponse(data as ResponseData);
+          localStorage.setItem("michikusa_station", JSON.stringify(data));
           await navigate({
             to: "/map",
             search: {
@@ -82,7 +85,6 @@ export const Route = createFileRoute("/")({
               name: data.destination_station.name,
             },
           });
-          localStorage.setItem("michikusa_station", JSON.stringify(data));
         }
       };
       if (requestData !== null) APIFetch({ requestData });
@@ -148,6 +150,9 @@ export const Route = createFileRoute("/")({
                       <Button
                         colorScheme="primary"
                         fontSize="4xl"
+                        isLoading={isLoading}
+                        loadingIcon={<Icon icon="svg-spinners:180-ring" />}
+                        loadingPlacement="end"
                         onClick={sendLocationInfo}
                         padding="10px"
                         size="lg"
