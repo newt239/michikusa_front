@@ -11,6 +11,7 @@ export type Facility = {
   genre: string;
   latitude: number;
   longitude: number;
+  map_url: string;
 };
 
 export type RequestData = {

@@ -4,10 +4,9 @@ import { useState } from "react";
 
 import {
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   Heading,
+  LinkBox,
+  LinkOverlay,
   Text,
   VStack,
 } from "@yamada-ui/react";
@@ -51,16 +50,23 @@ const HalfModal: React.FC<Props> = ({ name, facilityList }) => {
               </Drawer.Description>
               <VStack my="4">
                 {facilityList.map((facility) => (
-                  <Card key={facility.name} variant="outline">
-                    <CardHeader>
-                      <Heading size="md">{facility.name}</Heading>
-                    </CardHeader>
-                    <CardBody>
-                      <Text>
-                        {facility.genre} / {facility.distance}m
-                      </Text>
-                    </CardBody>
-                  </Card>
+                  <LinkBox
+                    border="1px solid"
+                    borderColor="inherit"
+                    boxShadow="md"
+                    key={facility.name}
+                    p="md"
+                    rounded="md"
+                  >
+                    <Heading size="md">
+                      <LinkOverlay href={facility.map_url} isExternal>
+                        {facility.name}
+                      </LinkOverlay>
+                    </Heading>
+                    <Text>
+                      {facility.genre} / {facility.distance}m
+                    </Text>
+                  </LinkBox>
                 ))}
               </VStack>
             </Box>
