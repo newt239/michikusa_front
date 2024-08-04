@@ -40,12 +40,12 @@ const HalfModal: React.FC<Props> = ({ name, facilityList }) => {
             <Box>
               <Drawer.Title asChild>
                 <Heading as="h2" pt={0} textAlign="center">
-                  {name || "近くにある施設"}
+                  {name === "undefined" ? "近くにある施設" : name}
                 </Heading>
               </Drawer.Title>
               <Drawer.Description asChild>
                 <Heading as="h3" fontSize="md">
-                  {name ? "近くにある施設" : "10件"}
+                  {name === "undefined" ? "10件" : "近くにある施設"}
                 </Heading>
               </Drawer.Description>
               <VStack my="4">
