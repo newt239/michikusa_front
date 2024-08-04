@@ -2,6 +2,7 @@ export type Station = {
   name: string;
   latitude: number;
   longitude: number;
+  station_code: string;
 };
 
 export type Facility = {

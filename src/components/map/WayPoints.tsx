@@ -34,7 +34,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
               justifyContent="center"
               w="3rem"
             >
-              <Box>M17</Box>
+              <Box>{departure.nearest_station.station_code}</Box>
             </Flex>
             <Box>{departure.nearest_station.name}</Box>
           </Flex>
@@ -54,7 +54,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
               top="-10px"
               transform="translateX(-50%)"
             >
-              {departure.railway_name}
+              {departure.railway_name}({departure.number_of_stations}駅)
             </Box>
           </Box>
           <Flex alignItems="center" flexDirection="column">
@@ -67,7 +67,7 @@ const WayPoints: React.FC<Props> = ({ departure, destination_station }) => {
               justifyContent="center"
               w="3rem"
             >
-              <Box>M17</Box>
+              <Box>{departure.destination_station.station_code}</Box>
             </Flex>
             <Box>{destination_station}</Box>
           </Flex>

@@ -4,7 +4,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Facility, Station } from "#/utils/type";
 
 type Props = {
-  station: Station;
+  station: Omit<Station, "station_code">;
   facilityList: Facility[];
 };
 
