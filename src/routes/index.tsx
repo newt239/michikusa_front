@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { Icon } from "@iconify/react";
 import {
   Box,
   Button,
@@ -15,31 +16,41 @@ import {
 import type { RequestData, ResponseData } from "#/utils/type";
 
 import BackgroundImage from "#/assets/backgroundImage4.svg";
+import michikusaIcon from "#/assets/michikusaIcon.svg";
 
 export const Route = createFileRoute("/")({
   component: () => {
     const [requestData, setRequestData] = useState<RequestData | null>(null);
     const [response, setResponse] = useState<ResponseData | null>(null);
     const [value, setValue] = useState<number>();
+    const [errorString, setErrorString] = useState<string>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const memoResult = useMemo(() => Math.random() * 200, []);
 
     const navigate = useNavigate();
 
     const items: NativeSelectItem[] = [
-      { label: "100円", value: "100" },
-      { label: "200円", value: "200" },
-      { label: "300円", value: "300" },
-      { label: "400円", value: "400" },
-      { label: "500円", value: "500" },
+      { label: "200円", value: 200 },
+      { label: "300円", value: 300 },
+      { label: "400円", value: 400 },
+      { label: "500円", value: 500 },
+      { label: "600円", value: 600 },
+      { label: "700円", value: 700 },
+      { label: "800円", value: 800 },
+      { label: "900円", value: 900 },
+      { label: "1000円", value: 1000 },
     ];
 
     let loop: number[] = [1, 2, 3, 4, 5, 6];
 
     const sendLocationInfo = (): void => {
+      setIsLoading(true);
       navigator.geolocation.getCurrentPosition((position) => {
         setRequestData({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          price: value,
+          price: value ?? 500,
         });
       });
     };
@@ -50,18 +61,22 @@ export const Route = createFileRoute("/")({
       }: {
         requestData: RequestData;
       }): Promise<void> => {
-        console.log("request: ", requestData);
-        console.log("fetching...");
-
-        const data = await fetch(import.meta.env.VITE_BACKEND_URL, {
-          method: "GET",
-        })
+        const data = await fetch(
+          import.meta.env.VITE_BACKEND_URL +
+            `?latitude=${requestData.latitude}&longitude=${requestData.longitude}&price=${requestData.price}`,
+          {
+            method: "GET",
+          }
+        )
           .then((res) => res.json())
           .catch((error) => console.error(error));
 
-        console.log("data: ", data);
-        if (data) {
+        // 仮
+        if (data.message === "Internal Server Error (getNearestStation)") {
+          setErrorString("近くの駅が見つかりませんでした");
+        } else if (data) {
           setResponse(data as ResponseData);
+          localStorage.setItem("michikusa_station", JSON.stringify(data));
           await navigate({
             to: "/map",
             search: {
@@ -70,7 +85,6 @@ export const Route = createFileRoute("/")({
               name: data.destination_station.name,
             },
           });
-          localStorage.setItem("michikusa_station", JSON.stringify(data));
         }
       };
       if (requestData !== null) APIFetch({ requestData });
@@ -105,7 +119,7 @@ export const Route = createFileRoute("/")({
                 <Image
                   key={index}
                   position="relative"
-                  right={index * Math.random() * 100 + 10}
+                  right={index * memoResult + 20}
                   src={BackgroundImage}
                   w="1600px"
                 />
@@ -121,28 +135,43 @@ export const Route = createFileRoute("/")({
               z="10"
             >
               <VStack align="center" gap="24" h="auto">
-                <Text fontSize="8xl">みちくさ</Text>
-                <VStack align="center" direction="column">
-                  <Button
-                    colorScheme="primary"
-                    fontSize="4xl"
-                    onClick={sendLocationInfo}
-                    padding="10px"
-                    size="lg"
-                    variant="solid"
-                  >
-                    みちくさを食う
-                  </Button>
-                  <NativeSelect
-                    fontSize="md"
-                    items={items}
-                    onChange={(e) => setValue(Number(e.target.value))}
-                    placeholder="金額をえらぶ"
-                    size="lg"
-                    value={value}
-                    w="150px"
-                  />
-                </VStack>
+                {errorString && (
+                  <Text color="red" fontSize="xl">
+                    {errorString}
+                  </Text>
+                )}
+                {errorString === undefined && (
+                  <>
+                    <VStack align="center">
+                      <Image src={michikusaIcon} w="200px" />
+                      <Text fontSize="8xl">みちくさ</Text>
+                    </VStack>
+                    <VStack align="center" direction="column">
+                      <Button
+                        colorScheme="primary"
+                        fontSize="4xl"
+                        isLoading={isLoading}
+                        loadingIcon={<Icon icon="svg-spinners:180-ring" />}
+                        loadingPlacement="end"
+                        onClick={sendLocationInfo}
+                        padding="10px"
+                        size="lg"
+                        variant="solid"
+                      >
+                        みちくさを食う
+                      </Button>
+                      <NativeSelect
+                        fontSize="md"
+                        items={items}
+                        onChange={(e) => setValue(Number(e.target.value))}
+                        placeholder="金額をえらぶ"
+                        size="lg"
+                        value={value}
+                        w="150px"
+                      />
+                    </VStack>
+                  </>
+                )}
               </VStack>
             </Box>
           </Center>
